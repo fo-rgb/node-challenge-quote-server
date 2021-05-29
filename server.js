@@ -1,4 +1,4 @@
-const { response } = require("express");
+// const { response } = require("express");
 // server.js
 // This is where your node app starts
 
@@ -13,8 +13,19 @@ const quotes = require("./quotes.json");
 //   /                  - Return some helpful welcome info (text)
 //   /quotes            - Should return all quotes (json)
 //   /quotes/random     - Should return ONE quote (json)
-app.get("/", function (request, response) {
-  response.send("Neill's Quote Server!  Ask me for /quotes/random, or /quotes");
+app.get("/quotes", function (request, response) {
+  const searchQuote = quotes.map((u) => u.quote);
+
+  response.send(searchQuote);
+  // response.send("Neill's Quote Server!  Ask me for /quotes/random, or /quotes");
+});
+
+app.get("/quotes/:random", function (request, response) {
+  const searchQuote = quotes[0];
+
+  response.send(searchQuote);
+
+  // response.send("Neill's Quote Server!  Ask me for /quotes/random, or /quotes");
 });
 
 //START OF YOUR CODE...
@@ -25,13 +36,14 @@ app.get("/", function (request, response) {
 //example: pickFromArray([1,2,3,4]), or
 //example: pickFromArray(myContactsArray)
 //
-function pickFromArray(arr) {
-  return arr[Math.floor(Math.random() * arr.length)];
-}
 
-//Start our server so that it listens for HTTP requests!
+// function pickFromArray(arr) {
+//   return arr[Math.floor(Math.random() * arr.length)];
+// }
+
+// // //Start our server so that it listens for HTTP requests!
 let port = 5000;
 
-app.listen( port, function () {
+app.listen(port, function () {
   console.log("Your app is listening on port " + port);
 });
